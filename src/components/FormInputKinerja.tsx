@@ -177,7 +177,11 @@ export const FormInputKinerja = ({ type }: { type: 'RT' | 'RW' }) => {
     // Gather all photos
     const allPhotos: string[] = [];
     Object.values(photoStore).forEach(arr => {
-      allPhotos.push(...arr);
+      arr.forEach(dataUrl => {
+        // Remove 'data:image/jpeg;base64,' prefix just to be safe for Google Apps Script Utilities.base64Decode
+        const base64Data = dataUrl.includes(',') ? dataUrl.split(',')[1] : dataUrl;
+        allPhotos.push(base64Data);
+      });
     });
 
     const payload = {

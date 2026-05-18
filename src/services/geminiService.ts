@@ -1,9 +1,13 @@
 import { GoogleGenAI } from '@google/genai';
 
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY || Object(import.meta.env).GEMINI_API_KEY;
-const ai = new GoogleGenAI({ apiKey });
+let ai: GoogleGenAI | null = null;
 
 export async function analyzeLaporan(data: any) {
+  if (!ai) {
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || Object(import.meta.env).GEMINI_API_KEY || "dummy_key_if_user_did_not_set";
+    ai = new GoogleGenAI({ apiKey: apiKey as string });
+  }
+
   const prompt = `
 Kamu adalah Sistem Pakar Analis Kinerja dan Retribusi Kecamatan Ujung Pandang. Tugas kamu adalah mengevaluasi kinerja RT/RW berdasarkan laporan berjenjang (9 Indikator Kota Makassar).
 
