@@ -4,8 +4,9 @@ let ai: GoogleGenAI | null = null;
 
 export async function analyzeLaporan(data: any) {
   if (!ai) {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || Object(import.meta.env).GEMINI_API_KEY || "dummy_key_if_user_did_not_set";
-    ai = new GoogleGenAI({ apiKey: apiKey as string });
+    const env = import.meta as any;
+    const apiKey = (env.env?.VITE_GEMINI_API_KEY || Object(env.env)?.GEMINI_API_KEY || "dummy_key_if_user_did_not_set") as string;
+    ai = new GoogleGenAI({ apiKey });
   }
 
   const prompt = `

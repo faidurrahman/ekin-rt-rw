@@ -287,6 +287,7 @@ export const UserManagement = () => {
         ) : (
           <div className="space-y-4">
             {Object.entries(groupedUsers).sort().map(([kelName, kelUsers]) => {
+              const usersArr = kelUsers as any[];
               const isExpanded = expandedKelurahan[kelName];
               return (
               <div key={kelName} className="space-y-3 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
@@ -300,7 +301,7 @@ export const UserManagement = () => {
                     </div>
                     <div>
                       <h3 className="font-bold text-slate-800">{kelName}</h3>
-                      <p className="text-xs text-slate-500">{kelUsers.length} pengguna terdaftar</p>
+                      <p className="text-xs text-slate-500">{usersArr.length} pengguna terdaftar</p>
                     </div>
                   </div>
                   <div className="text-slate-400">
@@ -310,7 +311,7 @@ export const UserManagement = () => {
                 
                 {isExpanded && (
                 <div className="p-4 pt-0 grid grid-cols-1 gap-3">
-                  {kelUsers.map((user, idx) => (
+                  {usersArr.map((user: any, idx: number) => (
                     <div key={idx} className="bg-white border text-sm border-slate-200 rounded-lg p-3 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-purple-200 transition-colors shadow-sm">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
